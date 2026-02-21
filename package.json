@@ -16,8 +16,7 @@
     "build:android": "npm run build && npx cap sync android",
     "build:ios": "npm run build && npx cap sync ios",
     "open:android": "npx cap open android",
-    "open:ios": "npx cap open ios",
-    "postinstall": "npx cap sync"
+    "open:ios": "npx cap open ios"
   },
   "dependencies": {
     "@capacitor/app": "^6.0.0",
@@ -25,6 +24,7 @@
     "@capacitor/core": "^6.0.0",
     "@capacitor/filesystem": "^6.0.0",
     "@capacitor/haptics": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
     "@capacitor/local-notifications": "^6.0.0",
     "@capacitor/push-notifications": "^6.0.0",
     "@capacitor/splash-screen": "^6.0.0",
