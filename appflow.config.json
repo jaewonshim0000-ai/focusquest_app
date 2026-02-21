@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "id": "focusquest",
+      "root": "./",
+      "webDir": "dist",
+      "dependencyInstallCommand": "npm ci",
+      "buildCommand": "npm run build"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+/* ──────────────────────────────────────────────────
+   FocusQuest Theme — Global Styles & Design Tokens
+   ────────────────────────────────────────────────── */
+
+:root {
+  /* Core palette */
+  --fq-bg: #0B0F1A;
+  --fq-bg2: #111827;
+  --fq-bg3: #1A2235;
+  --fq-surface: #1E293B;
+  --fq-surface2: #263348;
+  --fq-border: #2D3A4F;
+  --fq-border2: #3B4A63;
+  --fq-text: #F1F5F9;
+  --fq-text2: #94A3B8;
+  --fq-text3: #64748B;
+
+  /* Accent colors */
+  --fq-accent: #06D6A0;
+  --fq-accent2: #00B4D8;
+  --fq-accent3: #7C3AED;
+  --fq-warn: #F59E0B;
+  --fq-danger: #EF4444;
+  --fq-success: #10B981;
+  --fq-pink: #EC4899;
+  --fq-orange: #F97316;
+
+  /* Typography */
+  --fq-serif: 'Instrument Serif', Georgia, serif;
+  --fq-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+
+  /* Sizing */
+  --fq-radius-sm: 8px;
+  --fq-radius: 12px;
+  --fq-radius-lg: 16px;
+  --fq-radius-xl: 20px;
+  --fq-radius-2xl: 24px;
+
+  /* Ionic overrides */
+  --ion-background-color: var(--fq-bg);
+  --ion-text-color: var(--fq-text);
+  --ion-toolbar-background: var(--fq-surface);
+  --ion-toolbar-color: var(--fq-text);
+  --ion-tab-bar-background: var(--fq-surface);
+  --ion-tab-bar-color: var(--fq-text3);
+  --ion-tab-bar-color-selected: var(--fq-accent);
+  --ion-card-background: var(--fq-surface);
+  --ion-item-background: transparent;
+  --ion-font-family: var(--fq-sans);
+}
+
+/* Dark mode (app is always dark) */
+body {
+  background: var(--fq-bg);
+  color: var(--fq-text);
+  font-family: var(--fq-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safe area padding for notched devices */
+ion-content {
+  --padding-top: env(safe-area-inset-top);
+  --padding-bottom: env(safe-area-inset-bottom);
+}
+
+ion-tab-bar {
+  --border: 1px solid var(--fq-border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--fq-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--fq-border2); }
+
+/* Ambient background glow */
+.fq-ambient::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(6,214,160,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fq-ambient::after {
+  content: '';
+  position: fixed;
+  bottom: -300px;
+  left: -200px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animation utilities */
+@keyframes fq-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fq-slide-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fq-pulse { 0%, 100% { box-shadow: 0 0 20px rgba(6,214,160,0.1); } 50% { box-shadow: 0 0 40px rgba(6,214,160,0.2); } }
+
+.fq-animate-in { animation: fq-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.fq-fade-in { animation: fq-fade-in 0.3s ease-out; }

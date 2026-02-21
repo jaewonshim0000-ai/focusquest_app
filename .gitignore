@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.npm
+
+# Build output
+dist/
+build/
+www/
+
+# Environment files (NEVER commit)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Capacitor native build artifacts (keep android/ and ios/ dirs committed)
+android/app/build/
+android/.gradle/
+android/build/
+ios/App/Pods/
+ios/DerivedData/
+
+# Sentry
+.sentryclirc

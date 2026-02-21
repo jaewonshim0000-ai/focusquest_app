@@ -1,0 +1,7 @@
+{
+  "name": "FocusQuest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

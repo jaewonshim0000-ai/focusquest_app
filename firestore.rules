@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: check if user is authenticated
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    // Helper: check if user owns the document
+    function isOwner(userId) {
+      return isAuth() && request.auth.uid == userId;
+    }
+
+    // Helper: check if user is the parent of a student
+    function isParentOf(studentId) {
+      return isAuth() && get(/databases/$(database)/documents/users/$(studentId)).data.parentUid == request.auth.uid;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isParentOf(userId);
+      allow create: if isAuth();
+      allow update: if isOwner(userId);
+    }
+
+    // Point balances (read by owner or parent, write by server only)
+    match /point_balances/{userId} {
+      allow read: if isOwner(userId) || isParentOf(userId);
+      allow write: if false; // Server-only via Cloud Functions
+    }
+
+    // Points ledger
+    match /users/{userId}/points_ledger/{transactionId} {
+      allow read: if isOwner(userId) || isParentOf(userId);
+      allow write: if false; // Server-only
+    }
+
+    // Tasks
+    match /tasks/{taskId} {
+      allow read: if isAuth() && (
+        resource.data.assignedTo == request.auth.uid ||
+        resource.data.createdBy == request.auth.uid
+      );
+      allow create: if isAuth() && request.resource.data.createdBy == request.auth.uid;
+      allow update: if isAuth() && (
+        resource.data.assignedTo == request.auth.uid ||
+        resource.data.createdBy == request.auth.uid
+      );
+      allow delete: if isAuth() && resource.data.createdBy == request.auth.uid;
+    }
+
+    // Focus sessions
+    match /focus_sessions/{sessionId} {
+      allow read: if isAuth() && (
+        resource.data.userId == request.auth.uid ||
+        isParentOf(resource.data.userId)
+      );
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuth() && resource.data.userId == request.auth.uid;
+    }
+
+    // Time Keeper events
+    match /time_keeper_events/{eventId} {
+      allow read: if isAuth() && (
+        resource.data.userId == request.auth.uid ||
+        isParentOf(resource.data.userId)
+      );
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // Raffles (read by all authenticated users)
+    match /raffles/{raffleId} {
+      allow read: if isAuth();
+      allow write: if false; // Server-only
+    }
+
+    // Raffle entries
+    match /raffle_entries/{entryId} {
+      allow read: if isAuth() && resource.data.userId == request.auth.uid;
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // Notifications
+    match /notifications/{notifId} {
+      allow read: if isAuth() && resource.data.userId == request.auth.uid;
+      allow update: if isAuth() && resource.data.userId == request.auth.uid;
+    }
+
+    // Anomaly flags (admin only)
+    match /anomaly_flags/{flagId} {
+      allow read, write: if false; // Server-only
+    }
+  }
+}
