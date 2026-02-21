@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "appId": "com.focusquest.app",
+      "appId": "d53cd738",
       "root": "./",
       "webDir": "dist",
       "dependencyInstallCommand": "npm ci",
