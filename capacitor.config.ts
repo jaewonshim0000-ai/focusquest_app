@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.focusquest.app',
   appName: 'FocusQuest',
-  webDir: 'dist',
+  webDir: 'dist', 
   server: {
     // In production, this is removed; Appflow injects the correct URL
     // For local dev, use: url: 'http://localhost:5173'
