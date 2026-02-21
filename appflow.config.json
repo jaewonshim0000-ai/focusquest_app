@@ -4,7 +4,7 @@
       "appId": "d53cd738",
       "root": "./",
       "webDir": "dist",
-      "dependencyInstallCommand": "npm ci",
+      "dependencyInstallCommand": "npm install",
       "buildCommand": "npm run build"
     }
   ]
